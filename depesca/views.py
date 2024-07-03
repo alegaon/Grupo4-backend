@@ -76,6 +76,8 @@ def update_article(id_article):
     if not articulo:
         return jsonify({'message': 'Article not found'}), 404
     data = request.json
+    if not data:
+        return jsonify({'message': 'Nada que actualizar'}), 404
     # los if son para corroborar que la Key del diccionario a actualizar fue enviada, sino la pasa por alto. De lo contrario se rompe el Update
     if 'img_portada' in data:
         articulo.img_portada = data['img_portada']
@@ -117,8 +119,8 @@ def update_article(id_article):
         articulo.inf_img_3 = data['inf_img_3']
     if 'inf_img_4' in data:
         articulo.inf_img_4 = data['inf_img_4']
-    if 'actualizado' in data:
-        articulo.actualizado = datetime.today()
+    # este queda automatico, cada vez que se realice un Update, se actualiza la fecha automaticamente.
+    articulo.actualizado = datetime.today()
     articulo.save()
     return jsonify({'message': 'Article updated succesfully', 'data': data, 'id': id_article})
 
