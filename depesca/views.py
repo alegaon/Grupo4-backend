@@ -13,7 +13,11 @@ def index():
 
 def get_articles():
     articulos = []
-    return jsonify({'message': 'Articles not found'}), 404
+    articulos = Articulos.get_articles()
+    print(articulos)
+    if not articulos:
+        return jsonify({'message': 'Articles not found'}), 404
+    return jsonify([articulo.serializer() for articulo in articulos])
 
 
 def get_article(id_article):

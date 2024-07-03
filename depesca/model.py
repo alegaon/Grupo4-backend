@@ -87,6 +87,17 @@ class Articulos():
         return articles
 
     @staticmethod
+    def get_articles():
+        # Obtengo todos los articulos de la base (activos e inactivos)
+        return Articulos.__get_articles_by_query(
+            """
+        SELECT * 
+        FROM articulos 
+        ORDER BY creado DESC
+        """
+        )
+
+    @staticmethod
     def get_active_articles():
         return Articulos.__get_articles_by_query(
             """
