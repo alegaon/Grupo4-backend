@@ -29,7 +29,7 @@ def get_article(id_article):
 
 def get_active_articles():
     articulos = Articulos.get_active_articles()
-    return jsonify([articulos.serializer() for articulo in articulos])
+    return jsonify([articulo.serializer() for articulo in articulos])
 
 
 def new_article():
@@ -76,27 +76,49 @@ def update_article(id_article):
     if not articulo:
         return jsonify({'message': 'Article not found'}), 404
     data = request.json
-    articulo.img_portada = data['img_portada']
-    articulo.titulo = data['titulo']
-    articulo.descripcion = data['descripcion']
-    articulo.comida = data['comida']
-    articulo.embarcacion = data['embarcacion']
-    articulo.guia = data['guia']
-    articulo.equipos = data['equipos']
-    articulo.carnada = data['carnada']
-    articulo.wifi = data['wifi']
-    articulo.hospedaje = data['hospedaje']
-    articulo.atencion = data['atencion']
-    articulo.salvavidas = data['salvavidas']
-    articulo.info_descripcion = data['info_descripcion']
-    articulo.info_ubicacion = data['info_ubicacion']
-    articulo.info_img_principal = data['info_img_principal']
-    articulo.info_img_descripcion = data['info_img_descripcion']
-    articulo.inf_img_1 = data['inf_img_1']
-    articulo.inf_img_2 = data['inf_img_2']
-    articulo.inf_img_3 = data['inf_img_3']
-    articulo.inf_img_4 = data['inf_img_4']
-    articulo.actualizado = datetime.today()
+    # los if son para corroborar que la Key del diccionario a actualizar fue enviada, sino la pasa por alto. De lo contrario se rompe el Update
+    if 'img_portada' in data:
+        articulo.img_portada = data['img_portada']
+    if 'titulo' in data:
+        articulo.titulo = data['titulo']
+    if 'descripcion' in data:
+        articulo.descripcion = data['descripcion']
+    if 'comida' in data:
+        articulo.comida = data['comida']
+    if 'embarcacion' in data:
+        articulo.embarcacion = data['embarcacion']
+    if 'guia' in data:
+        articulo.guia = data['guia']
+    if 'equipos' in data:
+        articulo.equipos = data['equipos']
+    if 'carnada' in data:
+        articulo.carnada = data['carnada']
+    if 'wifi' in data:
+        articulo.wifi = data['wifi']
+    if 'hospedaje' in data:
+        articulo.hospedaje = data['hospedaje']
+    if 'atencion' in data:
+        articulo.atencion = data['atencion']
+    if 'salvavidas' in data:
+        articulo.salvavidas = data['salvavidas']
+    if 'info_descripcion' in data:
+        articulo.info_descripcion = data['info_descripcion']
+    if 'info_ubicacion' in data:
+        articulo.info_ubicacion = data['info_ubicacion']
+    if 'info_img_principal' in data:
+        articulo.info_img_principal = data['info_img_principal']
+    if 'info_img_descripcion' in data:
+        articulo.info_img_descripcion = data['info_img_descripcion']
+    if 'inf_img_1' in data:
+        articulo.inf_img_1 = data['inf_img_1']
+    if 'inf_img_2' in data:
+        articulo.inf_img_2 = data['inf_img_2']
+    if 'inf_img_3' in data:
+        articulo.inf_img_3 = data['inf_img_3']
+    if 'inf_img_4' in data:
+        articulo.inf_img_4 = data['inf_img_4']
+    if 'actualizado' in data:
+        articulo.actualizado = datetime.today()
     articulo.save()
     return jsonify({'message': 'Article updated succesfully', 'data': data, 'id': id_article})
 

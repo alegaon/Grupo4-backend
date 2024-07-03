@@ -201,7 +201,7 @@ class Articulos():
         db = get_db()
         cursor = db.cursor()
         cursor.execute(
-            "UPDATE articulos SET activo = false WHERE id = %s", (self.id_article,))
+            "UPDATE articulos SET activo = false WHERE id = %s", (self.id,))
         db.commit()
         cursor.close()
 
